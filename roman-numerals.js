@@ -32,6 +32,15 @@ const Converter = (function () {
   }
 
   /**
+   * @param {Number} length
+   * @param {String} char
+   * @returns {Array.<String>}
+   */
+  function getArrayOfChars(length, char) {
+    return new Array(length).fill(char);
+  }
+
+  /**
    * @param {Number} number
    * @returns {Array.<String>}
    */
@@ -39,7 +48,7 @@ const Converter = (function () {
     return String(number)
       .split('')
       .reverse()
-      .map((value, index) => value + new Array(index).fill('0').join(''))
+      .map((value, index) => value + getArrayOfChars(index, '0').join(''))
       .reverse()
   }
 
@@ -74,9 +83,9 @@ const Converter = (function () {
           case digit === 0:
             return '';
           case digit < 4:
-            return new Array(digit).fill(`1${zeros}`);
+            return getArrayOfChars(digit, `1${zeros}`);
           case digit > 5 && digit < 9:
-            return [`5${zeros}`, ...new Array(digit - 5).fill(`1${zeros}`)];
+            return [`5${zeros}`, ...getArrayOfChars(digit - 5, `1${zeros}`)];
           default:
             return `${digit}${zeros}`
         }
