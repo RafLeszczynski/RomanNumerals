@@ -31,6 +31,18 @@ const Converter = (function () {
     return number < 1 || number > 3999;
   }
 
+  /**
+   * @param {Number} number
+   * @returns {Array.<String>}
+   */
+  function breakNumberToArrayOfParts(number) {
+    return String(number)
+      .split('')
+      .reverse()
+      .map((value, index) => value + new Array(index).fill('0').join(''))
+      .reverse()
+  }
+
   // constructor
   function RomanArabicConverter(number) {
     if (this instanceof RomanArabicConverter !== true) {
@@ -53,11 +65,7 @@ const Converter = (function () {
   }
 
   RomanArabicConverter.prototype.toRoman = function () {
-    return String(this.number)
-      .split('')
-      .reverse()
-      .map((value, index) => value + new Array(index).fill('0').join(''))
-      .reverse()
+    return breakNumberToArrayOfParts(this.number)
       .map(value => {
         const digit = Number(value[0]);
         const zeros = value.slice(1);
