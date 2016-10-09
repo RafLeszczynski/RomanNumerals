@@ -52,6 +52,26 @@ const Converter = (function () {
       .reverse()
   }
 
+  /**
+   * @param {String} numberAsString
+   * @returns {String|Array.<String>}
+   */
+  function breakNumberToRomanValuesInArabic(numberAsString) {
+    const digit = Number(numberAsString[0]);
+    const zeros = numberAsString.slice(1);
+
+    switch (true) {
+      case digit === 0:
+        return '';
+      case digit < 4:
+        return getArrayOfChars(digit, `1${zeros}`);
+      case digit > 5 && digit < 9:
+        return [`5${zeros}`, ...getArrayOfChars(digit - 5, `1${zeros}`)];
+      default:
+        return `${digit}${zeros}`
+    }
+  }
+
   // constructor
   function RomanArabicConverter(number) {
     if (this instanceof RomanArabicConverter !== true) {
@@ -75,21 +95,7 @@ const Converter = (function () {
 
   RomanArabicConverter.prototype.toRoman = function () {
     return breakNumberToArrayOfParts(this.number)
-      .map(value => {
-        const digit = Number(value[0]);
-        const zeros = value.slice(1);
-
-        switch (true) {
-          case digit === 0:
-            return '';
-          case digit < 4:
-            return getArrayOfChars(digit, `1${zeros}`);
-          case digit > 5 && digit < 9:
-            return [`5${zeros}`, ...getArrayOfChars(digit - 5, `1${zeros}`)];
-          default:
-            return `${digit}${zeros}`
-        }
-      })
+      .map(breakNumberToRomanValuesInArabic)
       .join()
       .split(',')
       .map(value => arabicToRomanNumbers[value])
