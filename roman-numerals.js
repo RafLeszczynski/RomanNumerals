@@ -96,7 +96,7 @@ const Converter = (function () {
   RomanArabicConverter.prototype.toRoman = function () {
     const number = this.number;
 
-    return typeof number === 'string' ? number : breakNumberToArrayOfParts(this.number)
+    return typeof number === 'string' ? number : breakNumberToArrayOfParts(number)
       .map(breakNumberToRomanValuesInArabic)
       .join()
       .split(',')
@@ -107,8 +107,7 @@ const Converter = (function () {
   RomanArabicConverter.prototype.toArabic = function () {
     const number = this.number;
 
-    return typeof number === 'number' ? number : this.number
-      .split('')
+    return typeof number === 'number' ? number : number.split('')
       .map(char => romanToArabicNumbers[char])
       .reduce((sum, value, index, arr) => {
         return sum + (value < arr[index + 1] ? -value : value);
