@@ -8,6 +8,10 @@ const Converter = (function () {
     if (number === null || number === '') {
       throw new Error('value required');
     }
+
+    if (typeof number === 'number' && number < 1) {
+      throw new Error('invalid range');
+    }
   }
 
   return RomanArabicConverter;
@@ -21,6 +25,10 @@ const testCases = [
   {
     input: '',
     output: 'value required'
+  },
+  {
+    input: 0,
+    output: 'invalid range'
   }
 ];
 
