@@ -53,9 +53,30 @@ const Converter = (function () {
   }
 
   RomanArabicConverter.prototype.toRoman = function () {
-    const number = this.number;
+    return String(this.number)
+      .split('')
+      .reverse()
+      .map((value, index) => value + new Array(index).fill('0').join(''))
+      .reverse()
+      .map(value => {
+        const digit = Number(value[0]);
+        const zeros = value.slice(1);
 
-    return number > 3 ? arabicToRomanNumbers[number] : new Array(number).fill(arabicToRomanNumbers[1]).join('');
+        switch (true) {
+          case digit === 0:
+            return '';
+          case digit < 4:
+            return new Array(digit).fill(`1${zeros}`);
+          case digit > 5 && digit < 9:
+            return [`5${zeros}`, ...new Array(digit - 5).fill(`1${zeros}`)];
+          default:
+            return `${digit}${zeros}`
+        }
+      })
+      .join()
+      .split(',')
+      .map(value => arabicToRomanNumbers[value])
+      .join('');
   };
 
   return RomanArabicConverter;
@@ -106,6 +127,10 @@ const testCases = [
     input: 5,
     output: 'V'
   },
+  {
+    input: 1968,
+    output: 'MCMLXVIII',
+  },
 ];
 
 testCases.forEach((testCase, i) => {
@@ -117,7 +142,6 @@ testCases.forEach((testCase, i) => {
     console.log(
       `${i + 1}. For ${input} it should return ${output}: ${numberConverter.toRoman(input) === output} `
     );
-
   } catch (error) {
     console.log(
       `${i + 1}. For ${input} it should throw ${output}: ${error.message === output}`
