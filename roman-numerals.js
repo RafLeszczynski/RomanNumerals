@@ -190,6 +190,22 @@ const testCases = [
   {
     input: 'IV',
     output: 4,
+  },
+  {
+    input: 'V',
+    output: 5,
+  },
+  {
+    input: 'CDXXIX',
+    output: 429,
+  },
+  {
+    input: 'MCDLXXXII',
+    output: 1482,
+  },
+  {
+    input: 'MMMMCMXCIX',
+    output: 4999,
   }
 ];
 
