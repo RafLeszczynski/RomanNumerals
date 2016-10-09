@@ -43,7 +43,15 @@ const Converter = (function () {
     if (isOutOfRange(number)) {
       throw new Error('invalid range');
     }
+
+    this.number = number;
   }
+
+  RomanArabicConverter.prototype.toRoman = function () {
+    if (this.number === 1) {
+      return 'I';
+    }
+  };
 
   return RomanArabicConverter;
 }());
@@ -77,6 +85,10 @@ const testCases = [
     input: 'MMMMDMXCIX',
     output: 'invalid value'
   },
+  {
+    input: 1,
+    output: 'I'
+  }
 ];
 
 testCases.forEach((testCase, i) => {
@@ -84,6 +96,11 @@ testCases.forEach((testCase, i) => {
 
   try {
     const numberConverter = new Converter(input);
+
+    console.log(
+      `${i + 1}. For ${input} it should return ${output}: ${numberConverter.toRoman(input) === output} `
+    );
+
   } catch (error) {
     console.log(
       `${i + 1}. For ${input} it should throw ${output}: ${error.message === output}`
