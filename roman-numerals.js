@@ -1,15 +1,31 @@
 const Converter = (function () {
+  /**
+   * @param {*} input
+   * @returns {Boolean}
+   */
+  function isInvalidValue(input) {
+    return input === null || input === '';
+  }
+
+  /**
+   * @param {Number} number
+   * @returns {Boolean}
+   */
+  function isOutOfRange(number) {
+    return typeof number === 'number' && number < 1 || number > 3999;
+  }
+
   // constructor
   function RomanArabicConverter(number) {
     if (this instanceof RomanArabicConverter !== true) {
       return new RomanArabicConverter(number);
     }
 
-    if (number === null || number === '') {
+    if (isInvalidValue(number)) {
       throw new Error('value required');
     }
 
-    if (typeof number === 'number' && number < 1 || number > 3999 ) {
+    if (isOutOfRange(number)) {
       throw new Error('invalid range');
     }
   }
