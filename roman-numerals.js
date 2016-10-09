@@ -4,6 +4,10 @@ const Converter = (function () {
     if (this instanceof RomanArabicConverter !== true) {
       return new RomanArabicConverter(number);
     }
+
+    if (number === null) {
+      throw new Error('value required');
+    }
   }
 
   return RomanArabicConverter;
@@ -11,15 +15,19 @@ const Converter = (function () {
 
 const testCases = [
   {
-    input: '',
-    output: ''
+    input: null,
+    output: 'value required'
   }
 ];
 
-testCases.forEach(testCase => {
+testCases.forEach((testCase, i) => {
   const { input, output } = testCase;
 
   try {
     const numberConverter = new Converter(input);
-  } catch (error) {}
+  } catch (error) {
+    console.log(
+      `${i + 1}. For ${input} it should throw ${output}: ${error.message === output}`
+    );
+  }
 });
