@@ -130,6 +130,10 @@ const testCases = [
     output: 'invalid range'
   },
   {
+    input: 'IIII',
+    output: 'invalid value',
+  },
+  {
     input: 'CD1X',
     output: 'invalid value'
   },
