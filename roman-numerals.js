@@ -54,13 +54,8 @@ const Converter = (function () {
 
   RomanArabicConverter.prototype.toRoman = function () {
     const number = this.number;
-    const mapping = {
-      1: 'I',
-      4: 'IV',
-      5: 'V'
-    };
 
-    return number > 3 ? mapping[number] : new Array(number).fill(mapping[1]).join('');
+    return number > 3 ? arabicToRomanNumbers[number] : new Array(number).fill(arabicToRomanNumbers[1]).join('');
   };
 
   return RomanArabicConverter;
@@ -110,7 +105,7 @@ const testCases = [
   {
     input: 5,
     output: 'V'
-  }
+  },
 ];
 
 testCases.forEach((testCase, i) => {
