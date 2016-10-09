@@ -5,7 +5,7 @@ const Converter = (function () {
       return new RomanArabicConverter(number);
     }
 
-    if (number === null) {
+    if (number === null || number === '') {
       throw new Error('value required');
     }
   }
@@ -16,6 +16,10 @@ const Converter = (function () {
 const testCases = [
   {
     input: null,
+    output: 'value required'
+  },
+  {
+    input: '',
     output: 'value required'
   }
 ];
