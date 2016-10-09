@@ -9,7 +9,7 @@ const Converter = (function () {
       throw new Error('value required');
     }
 
-    if (typeof number === 'number' && number < 1) {
+    if (typeof number === 'number' && number < 1 || number > 3999 ) {
       throw new Error('invalid range');
     }
   }
@@ -28,6 +28,10 @@ const testCases = [
   },
   {
     input: 0,
+    output: 'invalid range'
+  },
+  {
+    input: 10000,
     output: 'invalid range'
   }
 ];
