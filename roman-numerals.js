@@ -48,9 +48,7 @@ const Converter = (function () {
   }
 
   RomanArabicConverter.prototype.toRoman = function () {
-    if (this.number === 1) {
-      return 'I';
-    }
+    return new Array(this.number).fill('I').join('');
   };
 
   return RomanArabicConverter;
@@ -88,6 +86,10 @@ const testCases = [
   {
     input: 1,
     output: 'I'
+  },
+  {
+    input: 3,
+    output: 'III'
   }
 ];
 
