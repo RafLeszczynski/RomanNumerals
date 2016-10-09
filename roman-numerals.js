@@ -204,6 +204,10 @@ const testCases = [
     output: 1482,
   },
   {
+    input: 'MCMLXXX',
+    output: 1980,
+  },
+  {
     input: 'MMMMCMXCIX',
     output: 4999,
   }
