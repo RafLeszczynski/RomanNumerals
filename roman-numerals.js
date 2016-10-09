@@ -3,8 +3,19 @@ const Converter = (function () {
    * @param {*} input
    * @returns {Boolean}
    */
-  function isInvalidValue(input) {
+  function isNoValue(input) {
     return input === null || input === '';
+  }
+
+  /**
+   * @param {*} input
+   * @returns {Boolean}
+   */
+  function isInvalidValue(input) {
+    const pattern = /^(?=[MDCLXVI])M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$/;
+
+    return typeof input !== 'number' && typeof input !== 'string' ||
+        !Number.isInteger(input) && !pattern.test(input);
   }
 
   /**
@@ -12,7 +23,7 @@ const Converter = (function () {
    * @returns {Boolean}
    */
   function isOutOfRange(number) {
-    return typeof number === 'number' && number < 1 || number > 3999;
+    return number < 1 || number > 3999;
   }
 
   // constructor
@@ -21,8 +32,12 @@ const Converter = (function () {
       return new RomanArabicConverter(number);
     }
 
-    if (isInvalidValue(number)) {
+    if (isNoValue(number)) {
       throw new Error('value required');
+    }
+
+    if (isInvalidValue(number)) {
+      throw new Error('invalid value')
     }
 
     if (isOutOfRange(number)) {
@@ -49,7 +64,19 @@ const testCases = [
   {
     input: 10000,
     output: 'invalid range'
-  }
+  },
+  {
+    input: 'CD1X',
+    output: 'invalid value'
+  },
+  {
+    input: 'error',
+    output: 'invalid value'
+  },
+  {
+    input: 'MMMMDMXCIX',
+    output: 'invalid value'
+  },
 ];
 
 testCases.forEach((testCase, i) => {
