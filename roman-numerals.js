@@ -103,7 +103,10 @@ const Converter = (function () {
   };
 
   RomanArabicConverter.prototype.toArabic = function () {
-    return romanToArabicNumbers[this.number];
+    return this.number
+      .split('')
+      .map(char => romanToArabicNumbers[char])
+      .reduce((sum, value) => sum + value, 0);
   };
 
   return RomanArabicConverter;
@@ -173,6 +176,10 @@ const testCases = [
   {
     input: 'I',
     output: 1,
+  },
+  {
+    input: 'III',
+    output: 3,
   }
 ];
 
