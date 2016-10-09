@@ -102,6 +102,10 @@ const Converter = (function () {
       .join('');
   };
 
+  RomanArabicConverter.prototype.toArabic = function () {
+    return romanToArabicNumbers[this.number];
+  };
+
   return RomanArabicConverter;
 }());
 
@@ -166,6 +170,10 @@ const testCases = [
     input: 3000,
     output: 'MMM',
   },
+  {
+    input: 'I',
+    output: 1,
+  }
 ];
 
 testCases.forEach((testCase, i) => {
@@ -173,9 +181,12 @@ testCases.forEach((testCase, i) => {
 
   try {
     const numberConverter = new Converter(input);
+    const convertedNumber = typeof input === 'number' ?
+      numberConverter.toRoman(input) :
+      numberConverter.toArabic(input);
 
     console.log(
-      `${i + 1}. For ${input} it should return ${output}: ${numberConverter.toRoman(input) === output} `
+      `${i + 1}. For ${input} it should return ${output}: ${convertedNumber === output}`
     );
   } catch (error) {
     console.log(
