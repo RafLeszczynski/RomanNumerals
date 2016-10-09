@@ -131,6 +131,18 @@ const testCases = [
     input: 1968,
     output: 'MCMLXVIII',
   },
+  {
+    input: 1473,
+    output: 'MCDLXXIII',
+  },
+  {
+    input: 2999,
+    output: 'MMCMXCIX',
+  },
+  {
+    input: 3000,
+    output: 'MMM',
+  },
 ];
 
 testCases.forEach((testCase, i) => {
